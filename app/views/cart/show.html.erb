@@ -1,0 +1,31 @@
+<h1>Your Cart</h1>
+
+<% unless session[:product_cart].empty?  %>
+    
+        <table class="table table-hover w-50">
+            <thead>
+                <tr>
+                <th>Product</th>
+                <th>Total Amount</th>
+                <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% session[:product_cart].each do |product| %>
+                    <tr class="align-middle">
+                        <td>
+                            <div class="d-flex flex-column">
+                                <strong><%= Product.find(product[0].to_i).name %></strong>
+                                <label>₹ <%= Product.find(product[0].to_i).price %>&nbsp; x <%= product[1] %></label>
+                            </div>
+                        </td>
+                        <td>₹ <%= Product.find(product[0].to_i).price * product[1] %></td>
+                        <td><%= button_to "Remove from cart", cart_remove_product_path(product[0]) %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+<% else %>
+    No Products in cart!
+<% end %>

@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<strong>Name:</strong>
+<%= @product.name %> </br>
+<strong>Price:</strong>
+<%= @product.price %>
+<hr>
+
+<% if session[:product_cart]["#{@product.id}"] %>
+  <p>Added to card</p>
+  <div class="d-flex align-items-center my-3">
+    <strong>Quantity :</strong>
+    <%= button_to "-", products_remove_path(@product), class:"mx-2" %>
+    <%= session[:product_cart]["#{@product.id}"] || 0%>
+    <%= button_to "+", products_add_path(@product), class:"mx-2" %>
+  </div>
+<% else %>
+  <%= button_to "Add to cart", products_add_path(@product), class:"mx-2 my-2" %>
+<% end %>
+<hr>
+
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>
